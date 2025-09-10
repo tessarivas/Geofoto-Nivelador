@@ -9,7 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "infoPlist": {
+        "NSCameraUsageDescription": "Necesitamos la cámara para tomar fotografías.",
+        "NSLocationWhenInUseUsageDescription": "Necesitamos tu ubicación para validar la geocerca y el heading.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Necesitamos tu ubicación para validar la geocerca y el heading."
+      }
     },
     "android": {
       "adaptiveIcon": {

@@ -15,7 +15,6 @@ export const useSensors = () => {
     let accelerometerSubscription: any = null;
 
     const setupSensors = async () => {
-      // Configurar magnetómetro
       Magnetometer.setUpdateInterval(SENSOR_INTERVAL_MS);
       magnetometerSubscription = Magnetometer.addListener((data) => {
         const newHeading = calculateHeading(data.x, data.y);
@@ -23,13 +22,11 @@ export const useSensors = () => {
         setIsNorth(isFacingNorth(newHeading));
       });
 
-      // Configurar acelerómetro
       Accelerometer.setUpdateInterval(SENSOR_INTERVAL_MS);
       accelerometerSubscription = Accelerometer.addListener((data) => {
         const newTilt = calculateTilt(data.x, data.y, data.z);
         setTilt(newTilt);
         
-        // Verificar si está nivelado por 2 segundos
         if (newTilt < 3) {
           const now = Date.now();
           if (levelStartTime === null) {

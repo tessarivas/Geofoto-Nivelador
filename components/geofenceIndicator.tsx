@@ -1,4 +1,3 @@
-// components/GeofenceIndicator.tsx
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginVertical: 10,
-    backgroundColor: 'rgba(162,89,230,0.15)', // morado translúcido
+    backgroundColor: 'rgba(162,89,230,0.15)', 
     borderRadius: 20,
     padding: 16,
     shadowColor: '#a259e6',
@@ -53,10 +52,10 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   statusOk: {
-    color: '#85ff89', // verde
+    color: '#85ff89', 
   },
   statusError: {
-    color: '#ff6ba6', // rosa
+    color: '#ff6ba6', 
   },
 });
 

@@ -1,4 +1,3 @@
-// App.tsx
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import React, { useRef, useState } from 'react';
@@ -32,7 +31,6 @@ export default function App() {
 
   const canTakePhoto = isInGeofence && isNorth && isLevel;
 
-  // Función para tomar la foto
   const takePicture = async () => {
     if (cameraRef.current && canTakePhoto) {
       try {
@@ -51,7 +49,6 @@ export default function App() {
     }
   };
 
-  // Función para abrir la cámara
   const openCamera = async () => {
     if (!permission?.granted) {
       await requestPermission();
@@ -83,7 +80,6 @@ export default function App() {
     return <View style={styles.container}><Text>Solicitando permisos...</Text></View>;
   }
 
-  // Verificar permisos
   if (!permission.granted) {
     return (
       <View style={styles.container}>
@@ -95,7 +91,6 @@ export default function App() {
     );
   }
 
-  // Mostrar cámara activa
   if (isCameraActive) {
     return (
       <View style={styles.cameraContainer}>
@@ -133,7 +128,6 @@ export default function App() {
     );
   }
 
-  // Mostrar foto tomada con marca de agua
   if (photo) {
     return (
       <SafeAreaView style={styles.container}>
@@ -216,7 +210,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a0033', // morado oscuro
+    backgroundColor: '#1a0033', 
   },
   scrollContainer: {
     padding: 20,
@@ -227,7 +221,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
-    color: '#ffffffff', // morado claro
+    color: '#ffffffff', 
   },
   message: {
     fontSize: 18,
@@ -236,7 +230,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   error: {
-    color: '#ff6bcb', // rosa/magenta
+    color: '#ff6bcb', 
     fontSize: 16,
     textAlign: 'center',
     marginVertical: 10,
@@ -244,10 +238,10 @@ const styles = StyleSheet.create({
   targetText: {
     fontSize: 14,
     marginVertical: 10,
-    color: '#d1b3ff', // lavanda claro
+    color: '#d1b3ff',
   },
   mainButton: {
-    backgroundColor: '#6c2eb7', // morado medio
+    backgroundColor: '#6c2eb7', 
     padding: 15,
     borderRadius: 10,
     marginVertical: 20,
@@ -255,7 +249,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainButtonDisabled: {
-    backgroundColor: '#3d246c', // morado grisáceo
+    backgroundColor: '#3d246c', 
   },
   mainButtonText: {
     color: '#fff',
@@ -265,7 +259,7 @@ const styles = StyleSheet.create({
   requirements: {
     marginTop: 20,
     padding: 15,
-    backgroundColor: '#2d1457', // fondo morado oscuro
+    backgroundColor: '#2d1457', 
     borderRadius: 10,
     width: '100%',
   },
@@ -281,7 +275,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   requirementMet: {
-    color: '#a259e6', // morado claro
+    color: '#a259e6', 
   },
   cameraContainer: {
     flex: 1,
@@ -335,7 +329,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 100,
     left: 20,
-    backgroundColor: 'rgba(162,89,230,0.7)', // morado claro translúcido
+    backgroundColor: 'rgba(162,89,230,0.7)',
     padding: 10,
     borderRadius: 5,
   },

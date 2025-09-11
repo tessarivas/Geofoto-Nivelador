@@ -12,26 +12,21 @@ export const useLocation = () => {
 
   useEffect(() => {
     (async () => {
-      // Solicitar permisos
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permiso de ubicación denegado');
         return;
       }
 
-      // Obtener ubicación actual
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation);
-      // Usar la primera ubicación como objetivo
       setTargetLocation({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude
       });
-      // La distancia inicial será 0 y estará dentro de la geocerca
       setDistance(0);
       setIsInGeofence(true);
 
-      // Configurar actualizaciones de ubicación
       Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.BestForNavigation,

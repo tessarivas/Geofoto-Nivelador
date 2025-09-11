@@ -32,6 +32,7 @@ export default function App() {
 
   const canTakePhoto = isInGeofence && isNorth && isLevel;
 
+  // Función para tomar la foto
   const takePicture = async () => {
     if (cameraRef.current && canTakePhoto) {
       try {
@@ -39,7 +40,6 @@ export default function App() {
         setPhoto(photo.uri);
         setIsCameraActive(false);
         
-        // Guardar en galería si se tiene permiso
         if (mediaPermission?.granted) {
           await MediaLibrary.saveToLibraryAsync(photo.uri);
           Alert.alert('Éxito', 'Foto guardada en la galería');
@@ -51,6 +51,7 @@ export default function App() {
     }
   };
 
+  // Función para abrir la cámara
   const openCamera = async () => {
     if (!permission?.granted) {
       await requestPermission();
@@ -82,6 +83,7 @@ export default function App() {
     return <View style={styles.container}><Text>Solicitando permisos...</Text></View>;
   }
 
+  // Verificar permisos
   if (!permission.granted) {
     return (
       <View style={styles.container}>
@@ -93,6 +95,7 @@ export default function App() {
     );
   }
 
+  // Mostrar cámara activa
   if (isCameraActive) {
     return (
       <View style={styles.cameraContainer}>
@@ -130,6 +133,7 @@ export default function App() {
     );
   }
 
+  // Mostrar foto tomada con marca de agua
   if (photo) {
     return (
       <SafeAreaView style={styles.container}>
@@ -212,25 +216,27 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1a0033', // morado oscuro
   },
   scrollContainer: {
     padding: 20,
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: 'center',
+    color: '#ffffffff', // morado claro
   },
   message: {
     fontSize: 18,
     marginBottom: 20,
     textAlign: 'center',
+    color: '#fff',
   },
   error: {
-    color: 'red',
+    color: '#ff6bcb', // rosa/magenta
     fontSize: 16,
     textAlign: 'center',
     marginVertical: 10,
@@ -238,10 +244,10 @@ const styles = StyleSheet.create({
   targetText: {
     fontSize: 14,
     marginVertical: 10,
-    color: '#666',
+    color: '#d1b3ff', // lavanda claro
   },
   mainButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#6c2eb7', // morado medio
     padding: 15,
     borderRadius: 10,
     marginVertical: 20,
@@ -249,17 +255,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainButtonDisabled: {
-    backgroundColor: '#CCC',
+    backgroundColor: '#3d246c', // morado grisáceo
   },
   mainButtonText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
   requirements: {
     marginTop: 20,
     padding: 15,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#2d1457', // fondo morado oscuro
     borderRadius: 10,
     width: '100%',
   },
@@ -267,16 +273,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#a259e6',
   },
   requirement: {
     fontSize: 14,
     marginVertical: 5,
+    color: '#fff',
   },
   requirementMet: {
-    color: 'green',
+    color: '#a259e6', // morado claro
   },
   cameraContainer: {
     flex: 1,
+    backgroundColor: '#1a0033',
   },
   camera: {
     flex: 1,
@@ -291,7 +300,7 @@ const styles = StyleSheet.create({
     top: 40,
     left: 20,
     zIndex: 10,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: '#6c2eb7',
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -299,7 +308,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   closeButtonText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -311,26 +320,27 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: 'white',
+    backgroundColor: '#a259e6',
     justifyContent: 'center',
     alignItems: 'center',
   },
   captureButtonDisabled: {
-    backgroundColor: '#CCC',
+    backgroundColor: '#3d246c',
   },
   captureButtonText: {
     fontSize: 30,
+    color: '#fff',
   },
   overlayInfo: {
     position: 'absolute',
     bottom: 100,
     left: 20,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(162,89,230,0.7)', // morado claro translúcido
     padding: 10,
     borderRadius: 5,
   },
   overlayText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 12,
     marginVertical: 2,
   },
@@ -338,6 +348,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#1a0033',
   },
   previewImage: {
     width: '100%',
@@ -348,19 +359,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 100,
     left: 20,
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: 'rgba(162,89,230,0.7)',
     padding: 10,
     borderRadius: 5,
   },
   watermarkText: {
     fontSize: 12,
     marginVertical: 2,
+    color: '#fff',
   },
   previewButtons: {
     marginTop: 20,
   },
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#6c2eb7',
     padding: 15,
     borderRadius: 10,
     marginVertical: 10,
@@ -368,7 +380,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },

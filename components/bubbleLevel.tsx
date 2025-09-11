@@ -21,7 +21,7 @@ const BubbleLevel: React.FC<BubbleLevelProps> = ({ tilt, isLevel }) => {
                   { translateX: tilt * 2 }, 
                   { translateY: tilt * 2 }
                 ],
-                backgroundColor: isLevel ? 'green' : 'red' 
+                backgroundColor: isLevel ? '#85ff89ff' : '#ff6ba6ff' 
               }
             ]} 
           />
@@ -39,11 +39,20 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginVertical: 10,
+    backgroundColor: 'rgba(162,89,230,0.15)', 
+    borderRadius: 20,
+    padding: 16,
+    shadowColor: '#a259e6',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
+    fontStyle: 'italic',
     marginBottom: 10,
+    color: '#e2b6ffff',
   },
   levelContainer: {
     flexDirection: 'row',
@@ -53,8 +62,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    borderWidth: 2,
-    borderColor: '#333',
+    borderWidth: 5,
+    borderColor: '#e2b6ffff',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
@@ -69,6 +78,11 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#fff',
+    backgroundColor: '#a259e6',
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginTop: 4,
   },
   status: {
     marginTop: 10,
@@ -76,10 +90,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   statusOk: {
-    color: 'green',
+    color: '#85ff89ff',
   },
   statusError: {
-    color: 'red',
+    color: '#ff6ba6ff',
   },
 });
 

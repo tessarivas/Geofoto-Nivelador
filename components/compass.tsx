@@ -26,31 +26,52 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginVertical: 10,
+    backgroundColor: 'rgba(162,89,230,0.15)', // morado translúcido
+    borderRadius: 20,
+    padding: 16,
+    shadowColor: '#a259e6',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
+    fontStyle: 'italic',
     marginBottom: 10,
+    color: '#e2b6ff',
   },
   compassCircle: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 2,
-    borderColor: '#333',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderWidth: 5,
+    borderColor: '#e2b6ff',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#f0f0f0',
+    overflow: 'hidden',
+    marginBottom: 8,
   },
   needle: {
     position: 'absolute',
-    width: 2,
-    height: 50,
-    backgroundColor: 'red',
+    width: 4,
+    height: 60,
+    backgroundColor: '#ff6ba6', // rosa
+    borderRadius: 2,
+    top: 20,
+    left: 48,
+    marginLeft: -2,
+    marginTop: -10,
   },
   headingText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#fff',
+    backgroundColor: '#a259e6',
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginTop: 4,
   },
   status: {
     marginTop: 10,
@@ -58,10 +79,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   statusOk: {
-    color: 'green',
+    color: '#85ff89', // verde
   },
   statusError: {
-    color: 'red',
+    color: '#ff6ba6', // rosa
   },
 });
 

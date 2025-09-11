@@ -1,17 +1,8 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import React, { useRef, useState } from 'react';
-import {
-  Alert,
-  Image,
-  Linking,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { Alert, Image, Linking, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import ViewShot from 'react-native-view-shot';
 import BubbleLevel from '../components/bubbleLevel';
 import Compass from '../components/compass';
 import GeofenceIndicator from '../components/geofenceIndicator';
@@ -20,6 +11,7 @@ import { useLocation } from '../hooks/useLocation';
 import { useSensors } from '../hooks/useSensors';
 
 export default function App() {
+  const viewShotRef = useRef<any>(null);
   const [permission, requestPermission] = useCameraPermissions();
   const [mediaPermission, requestMediaPermission] = MediaLibrary.usePermissions();
   const [photo, setPhoto] = useState<string | null>(null);
@@ -37,11 +29,13 @@ export default function App() {
         const photo = await cameraRef.current.takePictureAsync();
         setPhoto(photo.uri);
         setIsCameraActive(false);
-        
-        if (mediaPermission?.granted) {
-          await MediaLibrary.saveToLibraryAsync(photo.uri);
-          Alert.alert('Éxito', 'Foto guardada en la galería');
-        }
+        setTimeout(async () => {
+          if (viewShotRef.current && mediaPermission?.granted) {
+            const uri = await viewShotRef.current.capture();
+            await MediaLibrary.saveToLibraryAsync(uri);
+            Alert.alert('Éxito', 'Foto guardada en la galería con marca de agua');
+          }
+        }, 500);
       } catch (error) {
         console.error('Error tomando la foto:', error);
         Alert.alert('Error', 'No se pudo tomar la foto');
@@ -131,28 +125,17 @@ export default function App() {
   if (photo) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.previewContainer}>
-          <Image source={{ uri: photo }} style={styles.previewImage} />
-          <View style={styles.watermark}>
-            <Text style={styles.watermarkText}>
-              {new Date().toLocaleString()}
-            </Text>
-            <Text style={styles.watermarkText}>
-              {location ? `${location.coords.latitude.toFixed(5)}, ${location.coords.longitude.toFixed(5)}` : 'Ubicación no disponible'}
-            </Text>
-            <Text style={styles.watermarkText}>
-              Heading: {Math.round(heading)}°
-            </Text>
-            <Text style={styles.watermarkText}>
-              Nivelado: OK
-            </Text>
-          </View>
-          
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <ViewShot
+            ref={viewShotRef}
+            options={{ format: 'jpg', quality: 1 }}
+            style={{ width: 320, height: 480, backgroundColor: 'transparent', position: 'relative' }}
+          >
+            <Image source={{ uri: photo }} style={{ width: 320, height: 480 }} />
+            <Image source={require('../assets/images/TessaRivasAvatar.png')} style={{ position: 'absolute', bottom: 16, right: 16, width: 64, height: 64, opacity: 0.85 }} />
+          </ViewShot>
           <View style={styles.previewButtons}>
-            <TouchableOpacity 
-              style={styles.button} 
-              onPress={() => setPhoto(null)}
-            >
+            <TouchableOpacity style={styles.button} onPress={() => setPhoto(null)}>
               <Text style={styles.buttonText}>Volver a tomar foto</Text>
             </TouchableOpacity>
           </View>
@@ -208,6 +191,15 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  watermarkImage: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 80,
+    height: 80,
+    opacity: 0.8,
+    zIndex: 10,
+  },
   container: {
     flex: 1,
     backgroundColor: '#1a0033', 
